@@ -1,0 +1,39 @@
+---
+output: github_document
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>",
+  fig.path = "man/figures/README-",
+  out.width = "100%"
+)
+```
+
+# Assignment4
+
+<!-- badges: start -->
+<!-- badges: end -->
+
+The goal of Assignment4 is to turn analysis into interactive R package.
+
+## Overview
+
+The `hihai` package provides data and interactive tools such as Shiny app to explore Healthcare-Associated Infections (HAIs) in Germany and EU/EEA.
+
+The data is based on BHAI package that was collected in 2011 from ECDC Point Prevalence Survey with 95% uncertainty intervals allowing you to:
+1. Explore cleaned data on 5 different types of HAI through charts
+2. Interactive application for explore patterns
+3. Analysis
+
+## Installation
+
+You can install the development version of Assignment4 from [GitHub](https://github.com/) with:
+
+``` r
+# install.packages("pak")
+pak::pak("ETC5523-2025/assignment-4-packages-and-shiny-apps-arisarath")
+```
+
+## Usage
