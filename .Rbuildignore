@@ -3,3 +3,4 @@
 ^README\.Rmd$
 ^hihai\.Rproj$
 ^LICENSE\.md$
+^data-raw$
