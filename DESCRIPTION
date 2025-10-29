@@ -1,13 +1,29 @@
 Package: hihai
-Title: What the Package Does (One Line, Title Case)
+Title: Healthcare-Associated Infections Data Explorer with Shiny
 Version: 0.0.0.9000
 Authors@R: 
-    person("First", "Last", , "first.last@example.com", role = c("aut", "cre"))
-Description: What the package does (one paragraph).
+    person("Arisara", "Therdthianwong", email = "athe0025@student.monash.edu", role = c("aut", "cre"))
+Description: Interactive tools for exploring Healthcare-Associated Infections (HAIs) in Germany 
+  using data from 2011 ECDC Point Prevalence Survey. The package includes reproducible datasets 
+  and Shiny application for visualising that enables comparison of burden and severity among five 
+  HAI types in Germany and international comparison with EU/EEA.
 License: MIT + file LICENSE
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.3.3
 Depends: 
     R (>= 3.5)
+Imports:
+    shiny,
+    ggplot2,
+    dplyr,
+    tidyr,
+    DT,
+    scales,
+    shinythemes,
+    plotly
 LazyData: true
+Suggests: 
+    knitr,
+    rmarkdown
+VignetteBuilder: knitr
