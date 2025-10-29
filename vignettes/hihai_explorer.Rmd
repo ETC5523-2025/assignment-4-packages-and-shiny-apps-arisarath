@@ -1,8 +1,9 @@
 ---
-title: "hihai_explorer"
+title: "hihai explorer"
+author: "Arisara Therdthianwong"
 output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{hihai_explorer}
+  %\VignetteIndexEntry{hihai explorer}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
@@ -17,3 +18,175 @@ knitr::opts_chunk$set(
 ```{r setup}
 library(hihai)
 ```
+
+## Introduction
+
+Everybody goes to hospital to receive a cure but what if you left with another infection? 
+
+Healthcare-associated infections (HAIs) are a major health burden in Germany with approximately 1 in 25 hospitalised patients were affected. These infections cause significant illness, dealths, and health costs every year. 
+
+The `hihai` package provides tools and an interactive Shiny app to explore the burden of HAIs in Germany based on data from **2011 ECDC Point Prevalence Survey** covering 46 German hospitals and 9,626 patients.
+
+## About the data
+
+The package uses two cleaned datasets:
+1. `hai_data` which specifically look at German PPS with 95% Uncertainty Interval.
+2. `hai_comparison` which look at ECDC PPS covering 29 EU/EEA countries and Croatia with 95% Uncertainty interval.
+
+## What's measured
+
+- hai_type: abbreviation of 5 HAI types
+- hai_name: name of 5 HAI types
+- cases: Annual number of infections
+- deaths: Attributable mortality
+- dalys: Disability-adjusted life years (YLL + YLD)
+- yll: Years of life lost
+- yld: Years lived with disability
+
+*lower and upper bound for 95% UI*
+
+For exploring Germany's HAI burden:
+```{r}
+head(hai_data)
+```
+
+You can also explore international comparison:
+```{r}
+show(hai_comparison)
+```
+
+## Let's explore the data with Shiny App
+
+This application contains 3 main tabs; explore, severity, and comparison.
+- Explore view: Examine HAI frequency with customisable metrics
+- Severity view: Visualise the relationship between frequency and impact
+- Comparison view: Contrast German rates with EU/EEA averages
+
+Launching the App: 
+```{r}
+hihai::launch_app()
+```
+
+## Tab1: Explore - Understanding frequency
+
+**What question does this answer?**
+How common each HAI type is and what impact do they have?
+
+### What you see
+This tab focuses solely on Germany (German PPS data).
+
+The **Bar chart** shows the frequency of HAIs in selected metric (cases, deaths, or DALYs) for each HAI type in descending order.
+
+### Interactive controls
+1. Metric dropdown: 
+- Cases: How many infections occurred
+- Deaths: How many people died from HAIs
+- DALYS: Overall health burden
+- YLLs: Years of life lost
+- YLDs: Years lived with disability
+2. Check box
+- Check/uncheck to filter specific infections
+- Useful for comparing side-by-side data
+3. 95% UI toggle
+- Shows error bars for statistical uncertainty
+- Lower and upper bound where the true value likely falls
+
+### How to read the chart
+- Y-axis: Changes based on your selected metric
+- X-axis: HAI types (UTI, HAP, SSI, CDI, BSI)
+- Bar height: Value for that metric
+- Error bars: 95% Uncertainty interval
+- Colors: Each HAI type has a distinct color
+
+### Data table
+Table shows the actual number of cases, deaths, DALYs, YLLs, and YLDs
+
+You can sort by clicking column headers (Descending or Ascending)
+
+### Key findings
+At the end of this page, the app automatically generates a **ranking summary**
+
+*Example: When we look at cases: total = 476,936 cases. 1st rank is Urinary Tract Infection (UTI) with 214,150 cases, accounting for 44.9% of total infections.*
+
+This summary updates based on your selected metric, making it easy to capture findings. 
+
+**What you learn:** UTI is the most common type of HAI, but HAP causes the most harm overall.
+
+## Tab2: Severity - Visualising the impact
+
+**What question does this answer** 
+Which infections are most deadly relative to how common they are?
+
+Because frequency alone doesn't tell the full story. To understand impact, the package combine cases, deaths, and DALYs using a bubble chart. 
+
+### What you see
+
+The **Bubble chart** reveals the relationship between frequency (how common), mortality (how deadly), and burden (overall impact)
+
+### How to read the bubble chart
+- Y-axis: Annual attributable deaths (Higher => more deadly)
+- X-axis: Annual number of cases (Further right => more common)
+- Bubble size: DALYs (bigger bubble = higher overall burden)
+- Color: Each HAI type has a distinct color
+- Label: Abbreviation of HAI type (UTI, HAP, SSI, CDI, BSI)
+
+### Interactive features
+**Hover over any bubble** to see a detailed tooltip:
+
+*Example:* 
+```
+Urinary Tract Infection
+Cases:214,150 (175,086 - 253,524)
+Deaths: 3,664 (1,462 - 7,533)
+DALYs: 66,701 (27,890 - 128,543)
+```
+
+### Interpreting the chart
+
+Upper Right (UTI)
+- Many cases
+- Moderate deaths
+- Large bubble 
+
+**What you learn:** Frequency alone is misleading, BSI has only 26,976 cases but 3,905 deaths while UTI has 214,150 cases but 3,664 deaths. Despite having fewer cases, BSI causes similar total deaths.
+
+
+## Tab3: Comparison - Germany VS EU/EEA
+
+**What question does this answer** 
+How Germany's HAI burden perform comparing to other European countries?
+
+### What you see
+A **side-by-side bar chart** comparing Germany (German PPS) in red bars with EU/EEA Average (ECDC PPS) in blue bars.
+
+### Interactive controls
+1. Metric dropdown:
+- Cases: How many infections occurred
+- Deaths: How many people died from HAIs
+- DALYS: Overall health burden
+2. Population scale slider:
+- Adjust from 1,000 to 100,000
+- Changes the "per X population" calculation
+- Default: 100,000 population
+
+### How to read the chart
+- Y-axis: Rates per 100,000 population (adjust according to slider)
+- X-axis: HAI types (UTI, HAP, SSI, CDI, BSI)
+- Error bars: 95% Uncertainty interval
+
+### Key findings
+Below the chart, the app automatically generates a **automatic interpretation** that compares each HAI type based on metric you choose.
+
+```
+Example: When we look at (100,000 population), 
+Comparing German PPS to EU/EEA rates for DALYs:
+- CDI: Germany 159% higher (25.9 vs 10)
+- UTI: Germany 45% higher (82.6 vs 57.1)
+- HAP: Germany 22% lower (86.1 vs 109.8)
+- BSI: similar rates (Germany: 72.2 vs EU/EEA: 76.2)
+- SSI: similar rates (Germany: 35.7 vs EU/EEA: 35.1)*
+```
+
+**What you learn:** German shows higher burden across most of the metrics. Reasons include high hospitalisation rates and large bed capacity, which create more exposure opportunities.
+
+
