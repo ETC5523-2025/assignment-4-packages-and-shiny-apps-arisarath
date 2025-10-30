@@ -4,3 +4,5 @@
 ^hihai\.Rproj$
 ^LICENSE\.md$
 ^data-raw$
+^doc$
+^Meta$
