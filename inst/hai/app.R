@@ -29,6 +29,78 @@ ui <- tagList(
   navbarPage(
     title = "HiHai explorer",
     theme = shinytheme("flatly"),
+    tabPanel("Getting started",
+             fluidPage(
+               fluidRow(
+                 column(12,
+                        div(style="text-align:center;padding:30px 0 20px 0;",
+                            h1(style="color:#2c3e50;font-weight:700;margin-bottom:10px;", "HiHai Explorer"),
+                            h3(style="color:#34495e;font-weight:400;", "Healthcare-Associated Infections in Germany (2011)")
+                        ),
+                        div(style="background:#ffffff;padding:25px;border-radius:10px;margin:20px auto;max-width:1000px;box-shadow:0 2px 8px rgba(0,0,0,0.1);",
+                            h3(style="color:#2c3e50;border-bottom:3px solid #9ad4d6;padding-bottom:10px;", "📚 Welcome"),
+                            p(style="font-size:16px;line-height:1.8;",
+                              " Approximately ", tags$b("1 in 25 hospitalized patients"),
+                              " in Germany are affected by HAIs, causing over ", tags$b("478,000 cases"),
+                              " and ", tags$b("16,000 deaths"), " annually."
+                            ),
+                            p(style="font-size:16px;line-height:1.8;",
+                              "This interactive application in", tags$code("hihai"), "package helps you explore the burden of Healthcare-Associated Infections (HAIs) in Germany using data from the ",
+                              tags$b("2011 ECDC Point Prevalence Survey."),
+                            ),
+                            h3(style="color:#2c3e50;border-bottom:3px solid #9ad4d6;padding-bottom:10px;padding-top:10px;", "🦠 What are HAIs?"),
+                            p(style="font-size:15px;line-height:1.8;",
+                              "Healthcare-Associated Infections (HAIs) are infections that patients acquire while receiving medical treatment in a healthcare facility."),
+                            p(style="font-size:15px;line-height:1.8;",
+                              tags$b("This app focuses on five main types:"),
+                              tags$li("Urinary tract infection (UTI)"),
+                              tags$li("Pneumonia (HAP)"),
+                              tags$li("Surgical site infection (SSI)"),
+                              tags$li("Clostridioides difficile infection (CDI)"),
+                              tags$li("Bloodstream infection (BSI)")
+                              ),
+                            h3(style="color:#2c3e50;border-bottom:3px solid #9ad4d6;padding-bottom:10px;padding-top:10px;", "💡️ Understanding the Metrics"),
+                            p(style="font-size:15px;line-height:1.8;",
+                              tags$li(tags$b("Cases:"), "Annual number of infections showing frequency"),
+                              tags$li(tags$b("Deaths:"), "Deaths caused by HAIs showing mortality impact"),
+                              tags$li(tags$b("DALYs:"), "Disability-adjusted life years (YLL + YLD) showing overall burden"),
+                              tags$li(tags$b("YLLs:"), "Years of life lost showing mortality"),
+                              tags$li(tags$b("YLDs:"), "Years lived with disability showing morbidity"),
+                              ),
+                            h3(style="color:#2c3e50;border-bottom:3px solid #9ad4d6;padding-bottom:10px;padding-top:10px;", "🔍 App Guide"),
+                            p(style="font-size:18px;line-height:1.8;",
+                              tags$b("Tab1 : Explore"),
+                              tags$li(tags$b("What:"),"Bar chart display frequency of HAI"),
+                              tags$li(tags$b("Use:"),"Compare infections by different metrics"),
+                              tags$li(tags$b("Learn:"),"Which HAIs are most common and most harmful"),
+                              ),
+                            p(style="font-size:18px;line-height:1.8;",
+                              tags$b("Tab2 : Severity"),
+                              tags$li(tags$b("What:"),"Bubble chart show cases, deaths, and burden"),
+                              tags$li(tags$b("Use:"),"Visualise frequency vs severity"),
+                              tags$li(tags$b("Learn:"),"Which HAIs should be prioritised"),
+                              ),
+                            p(style="font-size:18px;line-height:1.8;",
+                              tags$b("Tab3 : Comparison"),
+                              tags$li(tags$b("What:"),"Bar chart demonstrate Germany vs EU/EEA"),
+                              tags$li(tags$b("Use:"),"Compare population-level burden "),
+                              tags$li(tags$b("Learn:"),"How Germany perform comparing to international average"),
+                              ),
+                            h3(style="color:#2c3e50;border-bottom:3px solid #9ad4d6;padding-bottom:10px;padding-top:10px;", "🗂 Data source"),
+                            p(style="font-size:18px;line-height:1.8;",
+                              tags$i("Zacher et al. (2019). Application of a new methodology and R package reveals a high burden of healthcare-associated infections (HAI) in Germany compared to the average in the European Union/European Economic Area, 2011 to 2012. Eurosurveillance, 24(46)."),
+                              tags$a("Click",
+                                href="https://doi.org/10.2807/1560-7917.ES.2019.24.46.1900135",
+                                     target="_blank"
+                                )
+                            )
+                            )
+                        )
+                 )
+               )
+
+    ),
+
     tabPanel("Explore",
              sidebarLayout(
                sidebarPanel(
@@ -51,34 +123,39 @@ ui <- tagList(
                  br(),
                  DTOutput("tbl_explore"),
                  br(),
-                 uiOutput("explore_summary")
+                 div(style = "background:#ffffff ;padding:12px;border-radius:6px;",
+                     h4("How to read"),
+                     tags$li(tags$b("X-axis:"), "HAI types"),
+                     tags$li(tags$b("Y-axis:"), "Change according to selected metric"),
+                     tags$li(tags$b("Order:"), "Ranked from highest to lowest"),
+                     tags$li(tags$b("Error bars:"), "Show 95% uncertainty intervals"),
+                     tags$li(tags$b("Color:"), "Indicate different HAI types"),
+                     tags$li(tags$b("Table:"), "Show actual number. Click column headers to sort"),
+                     uiOutput("explore_summary")
+                 )
                )
              )
     ),
     tabPanel("Severity",
-             fluidPage(
-               fluidRow(
-                 column(12,
-                        h3("Severity of HAIs", style="text-align:center;margin-top:20px;"),
-                        plotlyOutput("bubble_plot", height = 600),
-                        br(),
-                        div(style="background:#f8f9fa;padding:14px;border-radius:6px;margin:20px;",
-                            h4("How to read this chart"),
-                            tags$li(tags$b("X-axis:"), "Annual number of cases (frequency) - how common the infection is"),
-                            tags$li(tags$b("Y-axis:"), "Annual attributable deaths - severity measure showing mortality impact"),
-                            tags$li(tags$b("Bubble size:"), "Disability-Adjusted Life Years (DALYs) - combines mortality and morbidity"),
-                            tags$li(tags$b("Color:"), "Different HAI types for easy identification"),
-                            br(),
-                            h4("Key findings"),
-                            tags$p(style="margin-bottom:10px;line-height:1.6;",
-                                   "UTIs are very common but have moderate severity, while HAP and BSI are less frequent but cause significantly more deaths and DALYs per case."
-                            ),
-                            tags$p(style="margin-bottom:10px;line-height:1.6;",
-                                   tags$b("Example:"), " BSI has only 26,976 cases but 3,905 deaths (14.5% fatality rate), while UTI has 214,150 cases but 3,664 deaths (1.7% fatality rate). Despite having 8 times fewer cases, BSI causes similar total deaths!"
-                            )
-                        ),
-                 )
-               )
+             div(style="margin-left:100px ; margin-right:100px; padding:20px",
+                h3("Severity of HAIs", style="text-align:center;margin-top:20px;"),
+                plotlyOutput("bubble_plot", height = 600),
+                br(),
+                div(style="background:#ffffff;padding:14px;border-radius:6px;margin:20px;",
+                    h4("How to read"),
+                    tags$li(tags$b("X-axis:"), "Annual number of cases tell how common the infection is"),
+                    tags$li(tags$b("Y-axis:"), "Annual attributable deaths tell how severe the infection is"),
+                    tags$li(tags$b("Bubble size:"), "Disability-Adjusted Life Years (DALYs) combines mortality and morbidity"),
+                    tags$li(tags$b("Color:"), "Indicate different HAI types"),
+                    br(),
+                    h4("Key findings"),
+                    tags$p(style="margin-bottom:10px;line-height:1.6;",
+                           "UTIs are very common but have moderate severity, while HAP and BSI are less frequent but cause significantly more deaths and DALYs per case."
+                    ),
+                    tags$p(style="margin-bottom:10px;line-height:1.6;",
+                           tags$b("Example:"), " BSI has only 26,976 cases but 3,905 deaths (14.5% fatality rate), while UTI has 214,150 cases but 3,664 deaths (1.7% fatality rate). Despite having 8 times fewer cases, BSI causes similar total deaths!"
+                    )
+                ),
              )
     ),
     tabPanel("Comparison",
@@ -99,6 +176,8 @@ ui <- tagList(
                              step = 1000)
                ),
                mainPanel(
+                 h3("GERMANY VS EU/EEA", style="text-align:center;margin-top:20px;"),
+                 br(),
                  plotOutput("cmp_plot", height = 520),
                  br(),
                  uiOutput("interpretation_text")
@@ -148,6 +227,7 @@ server <- function(input, output, session) {
       theme(
         axis.title.x = element_text(face = "bold", size = 14, margin = margin(t = 10)),
         axis.title.y = element_text(face = "bold", size = 14, margin = margin(r = 10)),
+        plot.background = element_rect(color = "#9ad4d6", fill = NA, linewidth = 1)
       )
   })
 
@@ -188,10 +268,8 @@ server <- function(input, output, session) {
       )
     })
 
-    div(
-      style = "background:#f8f9fa;padding:12px;border-radius:6px;",
-      tags$h4("Key findings"),
-      tags$p(
+    div(tags$h4("Key findings"),
+        tags$p(
         tags$b(lab$lead),
         sprintf(": total = %s %s.", scales::comma(total_val), lab$noun)
       ),
@@ -257,7 +335,9 @@ server <- function(input, output, session) {
 
     ggplotly(p, tooltip = "text") |>
       layout(
-        hoverlabel = list(bgcolor = "white", font = list(size = 12))
+        hoverlabel = list(bgcolor = "white", font = list(size = 12)),
+        xaxis = list(showline = TRUE, linewidth = 1, linecolor = "black", mirror = TRUE),
+        yaxis = list(showline = TRUE, linewidth = 1, linecolor = "black", mirror = TRUE)
       ) |>
       config(displayModeBar = FALSE)
   })
@@ -305,6 +385,7 @@ server <- function(input, output, session) {
       theme(axis.text.x = element_text(angle = 45, hjust = 1),
             axis.title.x = element_text(face = "bold", size = 14, margin = margin(t = 10)),
             axis.title.y = element_text(face = "bold", size = 14, margin = margin(r = 10)),
+            plot.background = element_rect(color = "#9ad4d6", fill = NA, linewidth = 1)
       )
   })
 
@@ -350,7 +431,7 @@ server <- function(input, output, session) {
       pull(comparison_text)
 
     div(
-      style="background:#f8f9fa;padding:14px;border-radius:6px;margin-top:20px;",
+      style="background:#ffffff;padding:14px;border-radius:6px;margin-top:20px;",
       h4(paste0("Key findings (per ", format(input$population_scale, big.mark=","), " population):")),
       tags$p(
         paste0("Comparing German PPS to EU/EEA rates for ", metric_name, ":"),
@@ -361,7 +442,7 @@ server <- function(input, output, session) {
         lapply(comparisons, function(x) tags$li(x))
       ),
       tags$p(style="margin:0;",
-             tags$small(tags$i("Note: Germany has higher population burden despite better hospital ingection control due to high hospitalization rates."))
+             tags$small(tags$i("Note: Germany has higher population burden despite better hospital infection control due to high hospitalization rates."))
       )
     )
   })
