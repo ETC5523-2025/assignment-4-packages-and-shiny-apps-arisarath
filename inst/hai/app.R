@@ -63,16 +63,20 @@ ui <- tagList(
                         plotlyOutput("bubble_plot", height = 600),
                         br(),
                         div(style="background:#f8f9fa;padding:14px;border-radius:6px;margin:20px;",
-                            h5("How to read this chart"),
-                            p(strong("X-axis:"), "Annual number of cases (frequency) - how common the infection is"),
-                            p(strong("Y-axis:"), "Annual attributable deaths - severity measure showing mortality impact"),
-                            p(strong("Bubble size:"), "Disability-Adjusted Life Years (DALYs) - combines mortality and morbidity"),
-                            p(strong("Color:"), "Different HAI types for easy identification"),
+                            h4("How to read this chart"),
+                            tags$li(tags$b("X-axis:"), "Annual number of cases (frequency) - how common the infection is"),
+                            tags$li(tags$b("Y-axis:"), "Annual attributable deaths - severity measure showing mortality impact"),
+                            tags$li(tags$b("Bubble size:"), "Disability-Adjusted Life Years (DALYs) - combines mortality and morbidity"),
+                            tags$li(tags$b("Color:"), "Different HAI types for easy identification"),
                             br(),
-                            p(strong("Interpretation:"), "UTIs are very common but have moderate severity,
-                  while HAP and BSI are less frequent but cause significantly more deaths and DALYs per case."),
-                            p(strong("Source:"), "2011 ECDC Point Prevalence Survey")
-                        )
+                            h4("Key findings"),
+                            tags$p(style="margin-bottom:10px;line-height:1.6;",
+                                   "UTIs are very common but have moderate severity, while HAP and BSI are less frequent but cause significantly more deaths and DALYs per case."
+                            ),
+                            tags$p(style="margin-bottom:10px;line-height:1.6;",
+                                   tags$b("Example:"), " BSI has only 26,976 cases but 3,905 deaths (14.5% fatality rate), while UTI has 214,150 cases but 3,664 deaths (1.7% fatality rate). Despite having 8 times fewer cases, BSI causes similar total deaths!"
+                            )
+                        ),
                  )
                )
              )
@@ -86,7 +90,7 @@ ui <- tagList(
                              choices = c("Cases"="cases",
                                          "Deaths"="deaths",
                                          "DALYs"="dalys"),
-                             selected = "dalys"),
+                             selected = "cases"),
                  sliderInput("population_scale",
                              "Population scale",
                              min = 1000,
@@ -186,7 +190,7 @@ server <- function(input, output, session) {
 
     div(
       style = "background:#f8f9fa;padding:12px;border-radius:6px;",
-      tags$h5("Key findings"),
+      tags$h4("Key findings"),
       tags$p(
         tags$b(lab$lead),
         sprintf(": total = %s %s.", scales::comma(total_val), lab$noun)
@@ -347,10 +351,7 @@ server <- function(input, output, session) {
 
     div(
       style="background:#f8f9fa;padding:14px;border-radius:6px;margin-top:20px;",
-      tags$p(paste0("How to read")),
-      tags$p(paste0("This chart compares rates of HAIs between German PPS and EU/EEA, standardized per population.")),
-      tags$p(paste0("Error bars show 95% uncertainty intervals.")),
-      tags$strong(paste0("Interpretation (per ", format(input$population_scale, big.mark=","), " population):")),
+      h4(paste0("Key findings (per ", format(input$population_scale, big.mark=","), " population):")),
       tags$p(
         paste0("Comparing German PPS to EU/EEA rates for ", metric_name, ":"),
         style="margin-top:8px;margin-bottom:8px;"
@@ -358,6 +359,9 @@ server <- function(input, output, session) {
       tags$ul(
         style="margin-bottom:0;",
         lapply(comparisons, function(x) tags$li(x))
+      ),
+      tags$p(style="margin:0;",
+             tags$small(tags$i("Note: Germany has higher population burden despite better hospital ingection control due to high hospitalization rates."))
       )
     )
   })

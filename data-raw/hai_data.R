@@ -38,7 +38,7 @@ hai_data <- tribble(~hai_type, ~hai_name, ~sample,
                     44871, 18043, 92915,
                     20243, 8095, 40522,
 
-                    "CDI", "Clostridioides difficile", "PPS",
+                    "CDI", "Clostridioides difficile Infection", "PPS",
                     36002, 25108, 49934,
                     1917, 112, 4547,
                     20890, 2023, 49443,

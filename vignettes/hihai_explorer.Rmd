@@ -25,13 +25,13 @@ Imagine going to the hospital for treatment but ended up leaving with another in
 
 Healthcare-associated infections (HAIs) are a major health burden in Germany, affecting approximately 1 in 25 hospitalised patients. These infections cause significant illness, deaths, and health costs every year.
 
-The `hihai` package provides clean datasets and interactive Shiny app to explore, visualise, and interpret the burden of HAIs in Germany using the data from **2011 ECDC Point Prevalence Survey** covering 46 German hospitals and 9,626 patients.
+The `hihai` package provides clean datasets and interactive Shiny app to explore, visualise, and interpret the burden of HAIs in Germany using the data from **2011 ECDC Point Prevalence Survey**.
 
 ## About the data
 
 The package uses two cleaned datasets:
-1. `hai_data`: German PPS (five HAI types + total) with 95% uncertainty interval (UI).
-2. `hai_comparison`: Germany vs EU/EEA rates using ECDC PPS (29 EU/EEA countries + Croatia) with 95% uncertainty interval (UI).
+1. `hai_data`: German PPS (46 German hospitals with 9,626 patients) with 95% uncertainty interval (UI).
+2. `hai_comparison`: Germany vs EU/EEA rates using ECDC PPS (1,149 hospitals with 273,753 patients) with 95% uncertainty interval (UI).
 
 ## What's measured
 
