@@ -1,31 +1,85 @@
 
-# Assignment4
-
 <!-- badges: start -->
+
+# Welcome to hihai explorer
 
 <!-- badges: end -->
 
-The goal of Assignment4 is to turn analysis into interactive R package.
-
 ## Overview
 
-The `hihai` package provides data and interactive tools such as Shiny
-app to explore Healthcare-Associated Infections (HAIs) in Germany and
-EU/EEA.
+The `hihai` package transforms heathcare data into an interactive tools.
+It provides two tidy datasets and Shiny app to explore burden of
+Healthcare-Associated Infections (HAIs) in Germany compared to other
+EU/EEA countries.
 
-The data is based on BHAI package that was collected in 2011 from ECDC
-Point Prevalence Survey with 95% uncertainty intervals allowing you
-to: 1. Explore cleaned data on 5 different types of HAI through charts
-2. Interactive application for explore patterns 3. Analysis
+## Data
+
+The data is based on BHAI package that was collected from **2011 ECDC
+Point Prevalence Survey** covering 46 German hospitals (9,626 patients)
+and 29 EU/EEA countries (273,753 patients).
+
+**Hihai** makes it easy to:
+
+- Explore HAI burden across five infection types
+
+  • **HAP** - Health-Associated Pneumonia
+
+  • **SSI** - Surgical Site Infection
+
+  • **BSI** - Bloodstream Infection
+
+  • **UTI** - Urinary Tract Infection
+
+  • **CDI** - Clostridioides difficile Infection
+
+- Analyse frequency vs severity to identify high-impact infections
+
+- Compare Germany’s performance against EU/EEA countries
+
+- Visualise trends with interactive charts
 
 ## Installation
 
-You can install the development version of Assignment4 from
-[GitHub](https://github.com/) with:
+You can install the development version from:
 
 ``` r
-# install.packages("pak")
-pak::pak("ETC5523-2025/assignment-4-packages-and-shiny-apps-arisarath")
+# install.packages("remotes")
+remotes::install_github("ETC5523-2025/assignment-4-packages-and-shiny-apps-arisarath")
 ```
 
-## Usage
+### Launch Shiny app
+
+``` r
+hihai::launch_app()
+```
+
+The Shiny app features:
+
+- **Getting started** : Introduction and field explanations
+- **Explore** : Bar chart comparing HAIs by different metrics
+- **Severity** : Bubble chart showing severity
+- **Comparison** : Germany vs EU/EEA clustered chart
+
+## Learn more
+
+See the
+[examples](https://ETC5523-2025.github.io/assignment-4-packages-and-shiny-apps-arisarath/articles/hihai_explorer.html)
+page for full tutorial.
+
+## Source
+
+- Zacher et al. (2019). *Application of a new methodology and R package
+  reveals a high burden of healthcare-associated infections (HAI) in
+  Germany compared to the average in the European Union/European
+  Economic Area, 2011–2012.* Eurosurveillance, 24(46).
+  <https://doi.org/10.2807/1560-7917.ES.2019.24.46.1900135>
+
+## License
+
+MIT License.
+
+## Contributing
+
+Please [submit an
+issue](https://github.com/ETC5523-2025/assignment-4-packages-and-shiny-apps-arisarath/issues)
+to report bugs or ask questions.

@@ -9,7 +9,7 @@ navbar:
     right: [search, github]
   components:
     articles:
-      text: "Getting started"
+      text: "Examples"
       href: articles/hihai_explorer.html
     reference:
       text: "Reference"
@@ -29,7 +29,7 @@ reference:
     - launch_app
 
 articles:
-  - title: "Getting started"
+  - title: "Examples"
     contents:
     - hihai_explorer
 
