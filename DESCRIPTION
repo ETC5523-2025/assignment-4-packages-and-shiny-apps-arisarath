@@ -8,6 +8,9 @@ Description: Interactive tools for exploring Healthcare-Associated Infections (H
   and Shiny application for visualising that enables comparison of burden and severity among five 
   HAI types in Germany and international comparison with EU/EEA.
 License: MIT + file LICENSE
+URL: https://etc5523-2025.github.io/assignment-4-packages-and-shiny-apps-arisarath/, 
+    https://github.com/ETC5523-2025/assignment-4-packages-and-shiny-apps-arisarath
+BugReports: https://github.com/ETC5523-2025/assignment-4-packages-and-shiny-apps-arisarath/issues
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.3.3
