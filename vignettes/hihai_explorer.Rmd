@@ -124,6 +124,16 @@ The **Bar chart** shows the frequency of HAIs in selected metric (cases, deaths,
   - Lower and upper bound where the true value likely falls
 
 ### How to read the chart
+
+```{r}
+#| echo: false
+#| out.width: "80%"
+#| fig.align: "center"
+#| fig.cap: "Figure1. Bar chart illustrate frequency of HAIs"
+
+knitr::include_graphics("figures/bar.png")
+```
+
 - **X-axis:** HAI types (UTI, HAP, SSI, CDI, BSI)
 - **Y-axis:** Changes based on your selected metric
 - **Bar height:** Value for that metric
@@ -162,6 +172,16 @@ The **Bubble chart** reveals the relationship between:
 - Burden (overall impact)
 
 ### How to read the bubble chart
+
+```{r}
+#| echo: false
+#| out.width: "80%"
+#| fig.align: "center"
+#| fig.cap: "Figure2. Bubble chart demonstrate severity of HAIs"
+
+knitr::include_graphics("figures/bubble.png")
+```
+
 - **X-axis:** Annual number of cases (Further right => more common)
 - **Y-axis:** Annual attributable deaths (Higher => more deadly)
 - **Bubble size:** DALYs (bigger bubble = higher overall burden)
@@ -222,6 +242,16 @@ A **side-by-side bar chart** comparing:
   - Default: 100,000 population
 
 ### How to read the chart
+
+```{r}
+#| echo: false
+#| out.width: "80%"
+#| fig.align: "center"
+#| fig.cap: "Figure3. Clustered bar chart compare Germany with other European countries"
+
+knitr::include_graphics("figures/clusteredbar.png")
+```
+
   - **X-axis:** HAI types (UTI, HAP, SSI, CDI, BSI)
   - **Y-axis:** Rates per 100,000 population (adjust according to slider)
   - **Error bars:** 95% Uncertainty interval
