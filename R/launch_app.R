@@ -3,6 +3,6 @@
 #' @export
 #' @importFrom shiny runApp
 launch_app <- function() {
-  appDir <- system.file("shiny", package = "hihai")
+  appDir <- system.file("hai", package = "hihai")
   shiny::runApp(appDir)
 }
